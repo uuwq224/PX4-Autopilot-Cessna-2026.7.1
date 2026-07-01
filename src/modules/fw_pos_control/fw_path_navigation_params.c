@@ -1098,6 +1098,21 @@ PARAM_DEFINE_INT32(FW_CANARD_MAN, 0);
 PARAM_DEFINE_INT32(FW_CANARD_RC_AUX, 5);
 
 /**
+ * Canard scale factor for deflection amplitude
+ *
+ * 鸭翼配平补偿公式中的半幅缩放系数。
+ * 鸿鹄翼默认0.5(±15°)，塞斯纳襟翼设为0.1(±3°)。
+ *
+ * @unit norm
+ * @min 0.0
+ * @max 0.5
+ * @decimal 2
+ * @increment 0.01
+ * @group FW Attitude Control
+ */
+PARAM_DEFINE_FLOAT(FW_CANARD_SCL, 0.1f);
+
+/**
  * Canard auto-trim enable
  *
  * 巡航阶段根据升降舵长期偏载自动调整鸭翼下偏量，

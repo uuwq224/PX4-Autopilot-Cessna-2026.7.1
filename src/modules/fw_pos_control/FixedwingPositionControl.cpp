@@ -2007,6 +2007,14 @@ FixedwingPositionControl::control_auto_landing_straight(const hrt_abstime &now, 
 				? _param_fw_canard_lnd_h.get()      // 激光雷达精确阈值 0.1m
 				: _param_fw_canard_lnd_h2.get();     // 气压/GPS宽范围安全门 5.0m
 
+			// 着陆检测调试日志: 1Hz输出过载/高度/阈值/flag，用于仿真排查
+			if (hrt_elapsed_time(&_last_canard_debug_time) > 1_s) {
+				PX4_INFO("CANARD LND-DBG: nz=%.2f agl=%.2f h_thr=%.2f dist_bot=%d agl_v=%d phase=%d deployed=%d retracted=%d",
+					 (double)normal_load, (double)agl_height, (double)lnd_h_threshold,
+					 _local_pos.dist_bottom_valid, agl_valid, _canard_touchdown_phase,
+					 _canard_deployed, _canard_retracted);
+				_last_canard_debug_time = _local_pos.timestamp;
+			}
 			if (PX4_ISFINITE(normal_load)
 			    && agl_valid
 			    && agl_height < lnd_h_threshold
@@ -2282,6 +2290,14 @@ FixedwingPositionControl::control_auto_landing_circular(const hrt_abstime &now, 
 				? _param_fw_canard_lnd_h.get()      // 激光雷达精确阈值 0.1m
 				: _param_fw_canard_lnd_h2.get();     // 气压/GPS宽范围安全门 5.0m
 
+			// 着陆检测调试日志: 1Hz输出过载/高度/阈值/flag，用于仿真排查
+			if (hrt_elapsed_time(&_last_canard_debug_time) > 1_s) {
+				PX4_INFO("CANARD LND-DBG: nz=%.2f agl=%.2f h_thr=%.2f dist_bot=%d agl_v=%d phase=%d deployed=%d retracted=%d",
+					 (double)normal_load, (double)agl_height, (double)lnd_h_threshold,
+					 _local_pos.dist_bottom_valid, agl_valid, _canard_touchdown_phase,
+					 _canard_deployed, _canard_retracted);
+				_last_canard_debug_time = _local_pos.timestamp;
+			}
 			if (PX4_ISFINITE(normal_load)
 			    && agl_valid
 			    && agl_height < lnd_h_threshold
@@ -2795,10 +2811,10 @@ FixedwingPositionControl::Run()
 			_canard_setpoint = _param_fw_canard_neut.get();
 
 		} else if (_canard_braked) {//鸭翼空气刹车态 → 后缘极限上偏
-			_canard_setpoint = _param_fw_canard_neut.get() - _param_fw_canard_brk.get() * 0.5f;
+			_canard_setpoint = _param_fw_canard_neut.get() - _param_fw_canard_brk.get() * _param_fw_canard_scl.get();
 
 		} else if (_canard_deployed) {//鸭翼巡航/起飞展开态 → 后缘下偏
-			_canard_setpoint = _param_fw_canard_neut.get() + _param_fw_canard_to.get() * 0.5f;
+			_canard_setpoint = _param_fw_canard_neut.get() + _param_fw_canard_to.get() * _param_fw_canard_scl.get();
 
 		} else {//其他状态 → 中立
 			_canard_setpoint = _param_fw_canard_neut.get();
@@ -2824,10 +2840,10 @@ FixedwingPositionControl::Run()
 			// 三档阈值判断 → 复用自主模式参数定幅
 			if (aux_value > 0.5f) {
 				// 拨杆向上 → 鸭翼后缘下偏（巡航/起飞态）
-				_canard_setpoint = _param_fw_canard_neut.get() + _param_fw_canard_to.get() * 0.5f;
+				_canard_setpoint = _param_fw_canard_neut.get() + _param_fw_canard_to.get() * _param_fw_canard_scl.get();
 			} else if (aux_value < -0.5f) {
 				// 拨杆向下 → 鸭翼后缘上偏（空气刹车态）
-				_canard_setpoint = _param_fw_canard_neut.get() - _param_fw_canard_brk.get() * 0.5f;
+				_canard_setpoint = _param_fw_canard_neut.get() - _param_fw_canard_brk.get() * _param_fw_canard_scl.get();
 			} else {
 				// 拨杆中位 → 鸭翼中立
 				_canard_setpoint = _param_fw_canard_neut.get();

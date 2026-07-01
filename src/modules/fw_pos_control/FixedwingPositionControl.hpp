@@ -449,6 +449,7 @@ private:
 	bool _canard_braked{false};
 	hrt_abstime _canard_touchdown_time{0};
 	uint8_t _canard_touchdown_phase{0};
+	hrt_abstime _last_canard_debug_time{0};	// 鸭翼着陆检测调试日志限速
 	float _canard_trim_offset{0.f};		// 鸭翼自动配平补偿量 [0,1]，缓慢响应TECS俯仰积分器
 
 	hrt_abstime _time_in_fixed_bank_loiter{0}; // [us]
@@ -1042,6 +1043,7 @@ private:
 		(ParamFloat<px4::params::FW_CANARD_RSPD>) _param_fw_canard_rspd,
 		(ParamInt<px4::params::FW_CANARD_MAN>) _param_fw_canard_man,
 		(ParamInt<px4::params::FW_CANARD_RC_AUX>) _param_fw_canard_rc_aux,
+		(ParamFloat<px4::params::FW_CANARD_SCL>) _param_fw_canard_scl,
 		(ParamInt<px4::params::FW_CANARD_ATRIM>) _param_fw_canard_atrim,
 		(ParamFloat<px4::params::FW_CANARD_TRM_TH>) _param_fw_canard_trm_th,
 		(ParamFloat<px4::params::FW_CANARD_TRM_MX>) _param_fw_canard_trm_mx,
