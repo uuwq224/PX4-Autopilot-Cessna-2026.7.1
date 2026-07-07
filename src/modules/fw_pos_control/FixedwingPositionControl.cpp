@@ -2018,7 +2018,7 @@ FixedwingPositionControl::control_auto_landing_straight(const hrt_abstime &now, 
 			if (PX4_ISFINITE(normal_load)
 			    && agl_valid
 			    && agl_height < lnd_h_threshold
-			    && normal_load > _param_fw_canard_lnd_nz.get()) {
+			    && fabsf(normal_load) > _param_fw_canard_lnd_nz.get()) {
 				// 进入阶段1：升降舵强制最大低头，鸭翼保持当前偏角
 				_canard_touchdown_time = now;
 				_canard_touchdown_phase = 1;
@@ -2301,7 +2301,7 @@ FixedwingPositionControl::control_auto_landing_circular(const hrt_abstime &now, 
 			if (PX4_ISFINITE(normal_load)
 			    && agl_valid
 			    && agl_height < lnd_h_threshold
-			    && normal_load > _param_fw_canard_lnd_nz.get()) {
+			    && fabsf(normal_load) > _param_fw_canard_lnd_nz.get()) {
 				// 进入阶段1：升降舵强制最大低头，鸭翼保持当前偏角
 				_canard_touchdown_time = now;
 				_canard_touchdown_phase = 1;

@@ -219,9 +219,7 @@ void ActuatorEffectivenessControlSurfaces::applyCanard(float canard_control, int
 	_canard_setpoint_with_slewrate.update(canard_control, dt);
 
 	for (int i = 0; i < _count; ++i) {
-		if (_params[i].type == Type::LeftCanard || _params[i].type == Type::RightCanard) {
-			actuator_sp(i + first_actuator_idx) +=
-				(_canard_setpoint_with_slewrate.getState() * 2.f - 1.f) * _params[i].scale_canard;
-		}
+		actuator_sp(i + first_actuator_idx) +=
+			(_canard_setpoint_with_slewrate.getState() * 2.f - 1.f) * _params[i].scale_canard;
 	}
 }

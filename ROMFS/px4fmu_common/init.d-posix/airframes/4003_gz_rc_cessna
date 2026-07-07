@@ -15,6 +15,8 @@ param set-default SIM_GZ_EN 1
 param set-default SENS_EN_ARSPDSIM 1
 
 param set-default FW_LND_ANG 8
+param set-default FW_LND_USETER 0        # 禁用地形估计触发拉平
+param set-default FW_LND_ABORT 0         # 禁用基于地形条件的自动降落中止
 
 param set-default NPFG_PERIOD 12
 
@@ -52,6 +54,9 @@ param set-default NAV_ACC_RAD 15
 param set-default NAV_DLL_ACT 2
 
 param set-default RWTO_TKOFF 1
+param set-default RWTO_HDG 1
+
+param set-default RWTO_ROT_AIRSPD 15.0
 
 param set-default CA_AIRFRAME 1
 
@@ -70,7 +75,29 @@ param set-default CA_SV_CS2_TYPE 3
 param set-default CA_SV_CS3_TRQ_Y 1
 param set-default CA_SV_CS3_TYPE 4
 param set-default CA_SV_CS4_TYPE 9
+param set-default CA_SV_CS4_CANARD 1.0
 param set-default CA_SV_CS5_TYPE 10
+param set-default CA_SV_CS5_CANARD 1.0
+
+# 鸭翼参数 (塞斯纳: FW_CANARD_SCL=1.0 → ±3° 满偏)
+param set-default FW_CANARD_SCL 1.0
+param set-default FW_CANARD_TO   1.0
+param set-default SIM_GZ_SV_MAXA5 0.05236
+param set-default SIM_GZ_SV_MINA5 -0.05236
+param set-default SIM_GZ_SV_MAXA6 0.05236
+param set-default SIM_GZ_SV_MINA6 -0.05236
+param set-default FW_CANARD_NEUT 0.5
+param set-default FW_CANARD_BRK 1.0
+param set-default FW_CANARD_BRKD 1.0
+param set-default FW_CANARD_RSPD 0.5
+param set-default FW_CANARD_LND_H 0.1
+param set-default FW_CANARD_LND_H2 5.0
+param set-default FW_CANARD_LND_NZ 1.5
+param set-default FW_CANARD_MAN 0
+param set-default FW_CANARD_RC_AUX 5
+param set-default FW_CANARD_ATRIM 1
+param set-default FW_CANARD_TRM_TH 2.0
+param set-default FW_CANARD_TRM_MX 0.3
 
 param set-default SIM_GZ_EC_FUNC1 101
 param set-default SIM_GZ_EC_MIN1 0
