@@ -75,8 +75,10 @@ param set-default CA_SV_CS2_TYPE 3
 param set-default CA_SV_CS3_TRQ_Y 1
 param set-default CA_SV_CS3_TYPE 4
 param set-default CA_SV_CS4_TYPE 9
+param set-default CA_SV_CS4_FLAP 0    #禁用原生襟翼控制
 param set-default CA_SV_CS4_CANARD 1.0
 param set-default CA_SV_CS5_TYPE 10
+param set-default CA_SV_CS5_FLAP 0    #禁用原生襟翼控制
 param set-default CA_SV_CS5_CANARD 1.0
 
 # 鸭翼参数 (塞斯纳: FW_CANARD_SCL=1.0 → ±3° 满偏)
